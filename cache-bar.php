@@ -10,83 +10,27 @@
  * Text Domain: cache-bar
  */
 
+namespace CCC;
+
 defined( 'ABSPATH' ) || exit;
 
-class CCC
+class Plugin
 {
-    private function third_party_wp_opcache_link()
+    public static function init()
     {
-        return wp_nonce_url( add_query_arg([
-            'flush_opcache_action' => 'flushopcacheall'
-        ], remove_query_arg( 'settings-updated' ) ), 'flush_opcache_all' );
+        self::register_hooks();
     }
 
-    private function third_party_clp_varnish_cache_link()
+    private static function register_hooks()
     {
-        return add_query_arg([
-            'page'   => 'clp-varnish-cache',
-            'action' => 'purge-entire-cache',
-        ], admin_url( 'options-general.php' ) );
+        add_action( 'admin_bar_menu', [ self::class, 'register_toolbar' ], 300, 1 );
     }
 
-    private function third_party_cache_enabler_link()
+    public static function register_toolbar( $wp_admin_bar )
     {
-        return wp_nonce_url( add_query_arg([
-            '_cache'  => 'cache-enabler',
-            '_action' => 'clear',
-        ]), 'cache_enabler_clear_cache_nonce' );
-    }
+        $active_supported_plugins = self::active_supported_plugins();
 
-    private function config()
-    {
-        return [
-            'flush-opcache/flush-opcache.php' => [
-                'id'    => 'wp_opcache',
-                'name'  => 'WP OPcache',
-                'label' => 'Clear PHP OPcache',
-                'url'   => $this->third_party_wp_opcache_link(),
-                'remove_nodes' => [
-                    'flush_opcache_button',
-                ],
-            ],
-            'clp-varnish-cache/clp-varnish-cache.php' => [
-                'id'    => 'clp_varnish_cache',
-                'name'  => 'CLP Varnish Cache',
-                'label' => 'Clear Varnish Cache',
-                'url'   => $this->third_party_clp_varnish_cache_link(),
-            ],
-            'cache-enabler/cache-enabler.php' => [
-                'id'    => 'cache_enabler',
-                'name'  => 'Cache Enabler',
-                'label' => 'Clear Cache Enabler Page Cache',
-                'url'   => $this->third_party_cache_enabler_link(),
-                'remove_nodes' => [
-                    'cache_enabler_clear_cache',
-                    'cache_enabler_clear_page_cache',
-                ],
-            ],
-        ];
-    }
-
-    private function active_supported_plugins()
-    {
-        $supported_plugins = array_keys( $this->config() );
-
-        $active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
-
-        return array_intersect( $supported_plugins, $active_plugins );
-    }
-
-    public function register_toolbar( $wp_admin_bar )
-    {
-        $config = $this->config();
-
-        if ( empty( $config ) )
-            return;
-
-        $plugins = $this->active_supported_plugins();
-
-        if ( empty( $plugins ) )
+        if ( empty( $active_supported_plugins ) )
             return;
 
         $wp_admin_bar->add_group([
@@ -99,26 +43,42 @@ class CCC
             'parent' => 'ccc-group',
         ]);
 
-        foreach ( $plugins as $plugin )
+        foreach ( $active_supported_plugins as $plugin )
         {
-            foreach ( $config[ $plugin ]['remove_nodes'] ?? [] as $node )
+            foreach ( $plugin['rn'] ?? [] as $node )
                 $wp_admin_bar->remove_node( $node );
 
             $wp_admin_bar->add_node([
-                'id'     => 'ccc-node-'.$config[ $plugin ]['id'],
-                'title'  => $config[ $plugin ]['label'],
+                'id'     => 'ccc-node-'.$plugin['id'],
+                'title'  => $plugin['label'],
                 'parent' => 'ccc-node',
-                'href'   => $config[ $plugin ]['url'],
+                'href'   => $plugin['url'],
             ]);
         }
     }
 
-    public function register_hooks()
+    private static function active_supported_plugins()
     {
-        add_action( 'admin_bar_menu', [ $this, 'register_toolbar' ], 300, 1 );
+        $all_supported_plugins = self::all_supported_plugins();
+
+        $active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+        $active_plugins = array_flip( $active_plugins );
+
+        return array_filter( $all_supported_plugins, function ( $supported_plugin ) use ( $active_plugins ) {
+            return isset( $active_plugins[ $supported_plugin['slug'] ] );
+        });
+    }
+
+    private static function all_supported_plugins()
+    {
+        $all_supported_plugins = [];
+
+        foreach ( glob( __DIR__.'/supported-plugins/*.php' ) as $file )
+            $all_supported_plugins[] = include $file;
+
+        return $all_supported_plugins;
     }
 }
 
-$ccc = new CCC();
-$ccc->register_hooks();
+add_action( 'plugins_loaded', [ Plugin::class, 'init' ] );
 
