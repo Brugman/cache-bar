@@ -86,7 +86,7 @@ final class Plugin
         foreach ( glob( __DIR__.'/supported-plugins/*.php' ) as $file )
             $all_supported_plugins[] = include $file;
 
-        return $all_supported_plugins;
+        return apply_filters( 'cache_bar_plugins', $all_supported_plugins );
     }
 }
 
