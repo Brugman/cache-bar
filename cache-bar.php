@@ -14,21 +14,31 @@ namespace CCC;
 
 defined( 'ABSPATH' ) || exit;
 
-class Plugin
+final class Plugin
 {
-    public static function init()
+    private static $instance = null;
+
+    public static function instance()
     {
-        self::register_hooks();
+        if ( self::$instance === null )
+            self::$instance = new self();
+
+        return self::$instance;
     }
 
-    private static function register_hooks()
+    private function __construct()
     {
-        add_action( 'admin_bar_menu', [ self::class, 'register_toolbar' ], 300, 1 );
+        $this->register_hooks();
     }
 
-    public static function register_toolbar( $wp_admin_bar )
+    private function register_hooks()
     {
-        $active_supported_plugins = self::active_supported_plugins();
+        add_action( 'admin_bar_menu', [ $this, 'register_toolbar' ], 300, 1 );
+    }
+
+    public function register_toolbar( $wp_admin_bar )
+    {
+        $active_supported_plugins = $this->active_supported_plugins();
 
         if ( empty( $active_supported_plugins ) )
             return;
@@ -57,9 +67,9 @@ class Plugin
         }
     }
 
-    private static function active_supported_plugins()
+    private function active_supported_plugins()
     {
-        $all_supported_plugins = self::all_supported_plugins();
+        $all_supported_plugins = $this->all_supported_plugins();
 
         $active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
         $active_plugins = array_flip( $active_plugins );
@@ -69,7 +79,7 @@ class Plugin
         });
     }
 
-    private static function all_supported_plugins()
+    private function all_supported_plugins()
     {
         $all_supported_plugins = [];
 
@@ -80,5 +90,5 @@ class Plugin
     }
 }
 
-add_action( 'plugins_loaded', [ Plugin::class, 'init' ] );
+add_action( 'plugins_loaded', [ Plugin::class, 'instance' ] );
 
