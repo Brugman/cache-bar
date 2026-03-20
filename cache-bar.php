@@ -33,14 +33,33 @@ final class Plugin
 
     private function register_hooks()
     {
-        add_action( 'admin_bar_menu', [ $this, 'register_toolbar' ], 300, 1 );
+        add_action( 'admin_bar_menu', [ $this, 'modify_toolbar' ], 300, 1 );
     }
 
-    public function register_toolbar( $wp_admin_bar )
+    public function modify_toolbar( $wp_admin_bar )
     {
-        $active_supported_plugins = $this->active_supported_plugins();
+        $asp = $this->active_supported_plugins();
 
-        if ( empty( $active_supported_plugins ) )
+        if ( empty( $asp ) )
+            return;
+
+        $this->remove_third_party_toolbars( $wp_admin_bar, $asp );
+        $this->add_ccc_toolbar( $wp_admin_bar, $asp );
+    }
+
+    private function remove_third_party_toolbars( $wp_admin_bar, $asp )
+    {
+        if ( current_user_can( apply_filters( 'ccc_keep_third_party_toolbars', 'loremipsumdolorsitamet' ) ) )
+            return;
+
+        foreach ( $asp as $plugin )
+            foreach ( $plugin['rn'] ?? [] as $node )
+                $wp_admin_bar->remove_node( $node );
+    }
+
+    private function add_ccc_toolbar( $wp_admin_bar, $asp )
+    {
+        if ( !current_user_can( apply_filters( 'ccc_add_toolbar', 'manage_options' ) ) )
             return;
 
         $wp_admin_bar->add_group([
@@ -53,11 +72,8 @@ final class Plugin
             'parent' => 'ccc-group',
         ]);
 
-        foreach ( $active_supported_plugins as $plugin )
+        foreach ( $asp as $plugin )
         {
-            foreach ( $plugin['rn'] ?? [] as $node )
-                $wp_admin_bar->remove_node( $node );
-
             $wp_admin_bar->add_node([
                 'id'     => 'ccc-node-'.$plugin['id'],
                 'title'  => $plugin['label'],
