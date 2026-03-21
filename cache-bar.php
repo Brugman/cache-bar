@@ -140,12 +140,12 @@ final class Plugin
         $title = '';
 
         if ( $link_one === false )
-            $title .= '<span class="ei-left">left</span>';
+            $title .= '<span class="ei-left">'.$text_one.'</span>';
         else
             $title .= '<a href="'.$link_one.'" class="ei-left">'.$text_one.'</a>';
 
         if ( $link_two === false )
-            $title .= '<span class="ei-right">right</span>';
+            $title .= '<span class="ei-right">'.$text_two.'</span>';
         else
             $title .= '<a href="'.$link_two.'" class="ei-right">'.$text_two.'</a>';
 
