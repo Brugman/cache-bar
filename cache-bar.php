@@ -105,13 +105,51 @@ final class Plugin
 
         foreach ( $asp as $plugin )
         {
+            if ( isset( $plugin['links']['clear'], $plugin['links']['settings'] ) )
+            {
+                $title = $this->build_double_node_title(
+                    $plugin['links']['clear']['label'],
+                    $plugin['links']['clear']['url'],
+                    $plugin['links']['settings']['label'],
+                    $plugin['links']['settings']['url'],
+                );
+
+                $href = false;
+            }
+            elseif ( isset( $plugin['links']['clear'] ) )
+            {
+                $title = $plugin['links']['clear']['label'];
+                $href  = $plugin['links']['clear']['url'];
+            }
+            else
+            {
+                continue;
+            }
+
             $wp_admin_bar->add_node([
                 'id'     => 'ccc-node-'.$plugin['id'],
-                'title'  => $plugin['label'],
+                'title'  => $title,
                 'parent' => 'ccc-node',
-                'href'   => $plugin['url'],
+                'href'   => $href,
             ]);
         }
+    }
+
+    private function build_double_node_title( $text_one, $link_one, $text_two, $link_two )
+    {
+        $title = '';
+
+        if ( $link_one === false )
+            $title .= '<span class="ei-left">left</span>';
+        else
+            $title .= '<a href="'.$link_one.'" class="ei-left">'.$text_one.'</a>';
+
+        if ( $link_two === false )
+            $title .= '<span class="ei-right">right</span>';
+        else
+            $title .= '<a href="'.$link_two.'" class="ei-right">'.$text_two.'</a>';
+
+        return $title;
     }
 
     private function active_supported_plugins()
