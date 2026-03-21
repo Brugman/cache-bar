@@ -39,7 +39,8 @@ final class Plugin
     private function register_hooks()
     {
         add_action( 'admin_enqueue_scripts', [ $this, 'register_backend_styles' ] );
-        add_action( 'admin_bar_menu', [ $this, 'modify_toolbar' ], 300, 1 );
+
+        add_action( 'admin_bar_menu', [ $this, 'modify_toolbar' ], 1000, 1 );
     }
 
     public function register_backend_styles()
