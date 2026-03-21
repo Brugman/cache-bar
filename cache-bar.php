@@ -14,6 +14,11 @@ namespace CCC;
 
 defined( 'ABSPATH' ) || exit;
 
+define( 'CCC_FILE', __FILE__ );
+define( 'CCC_BASENAME', plugin_basename( CCC_FILE ) );
+
+define( 'CCC_VERSION', '0.1.0' );
+
 final class Plugin
 {
     private static $instance = null;
@@ -33,7 +38,32 @@ final class Plugin
 
     private function register_hooks()
     {
+        add_action( 'admin_enqueue_scripts', [ $this, 'register_backend_styles' ] );
         add_action( 'admin_bar_menu', [ $this, 'modify_toolbar' ], 300, 1 );
+    }
+
+    public function register_backend_styles()
+    {
+        wp_register_style(
+            'ccc-css-main',
+            plugin_dir_url( CCC_FILE ).'assets/ccc-main.min.css',
+            [],
+            CCC_VERSION,
+            'all'
+        );
+
+        wp_enqueue_style( 'ccc-css-main' );
+
+        wp_register_style(
+            'ccc-css-right',
+            plugin_dir_url( CCC_FILE ).'assets/ccc-right.min.css',
+            [],
+            CCC_VERSION,
+            'all'
+        );
+
+        if ( apply_filters( 'ccc_toolbar_position_right', false ) )
+            wp_enqueue_style( 'ccc-css-right' );
     }
 
     public function modify_toolbar( $wp_admin_bar )

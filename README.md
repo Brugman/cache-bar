@@ -30,6 +30,12 @@ add_filter( 'ccc_keep_third_party_toolbars', function ( $capability ) {
 });
 ```
 
+### Move toolbar to the right
+
+```php
+add_filter( 'ccc_toolbar_position_right', '__return_true' );
+```
+
 ## Contributing
 
 Found a bug? Anything you would like to ask, add or change? Please open an issue so we can talk about it.
