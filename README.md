@@ -7,6 +7,8 @@
 - [WP OPcache](https://wordpress.org/plugins/flush-opcache/)
 - [CLP Varnish Cache](https://wordpress.org/plugins/clp-varnish-cache/)
 - [Cache Enabler](https://wordpress.org/plugins/cache-enabler/)
+- [LiteSpeed Cache](https://wordpress.org/plugins/litespeed-cache/)
+- [Redis Object Cache](https://wordpress.org/plugins/redis-cache/)
 
 ## Configurations
 
