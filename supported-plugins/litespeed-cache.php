@@ -16,10 +16,10 @@ return [
             'label' => 'Clear LiteSpeed Page Cache',
             'url'   => $clear_url,
         ],
-        // 'settings' => [
-        //     'label' => 'X',
-        //     'url'   => false,
-        // ],
+        'settings' => [
+            'label' => 'Settings',
+            'url'   => menu_page_url( 'litespeed-cache', false ),
+        ],
     ],
     'rn'    => [
         'litespeed-menu',

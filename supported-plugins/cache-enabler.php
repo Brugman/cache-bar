@@ -16,10 +16,10 @@ return [
             'label' => 'Clear Cache Enabler Page Cache',
             'url'   => $clear_url,
         ],
-        // 'settings' => [
-        //     'label' => 'X',
-        //     'url'   => false,
-        // ],
+        'settings' => [
+            'label' => 'Settings',
+            'url'   => menu_page_url( 'cache-enabler', false ),
+        ],
     ],
     'rn'    => [
         'cache_enabler_clear_cache',

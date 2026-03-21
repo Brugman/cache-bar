@@ -17,10 +17,10 @@ return [
             'label' => 'Clear Redis Object Cache',
             'url'   => $clear_url,
         ],
-        // 'settings' => [
-        //     'label' => 'X',
-        //     'url'   => false,
-        // ],
+        'settings' => [
+            'label' => 'Settings',
+            'url'   => menu_page_url( 'redis-cache', false ),
+        ],
     ],
     'rn'    => [
         'redis-cache',

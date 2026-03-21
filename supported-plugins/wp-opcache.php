@@ -15,10 +15,10 @@ return [
             'label' => 'Clear PHP OPcache',
             'url'   => $clear_url,
         ],
-        // 'settings' => [
-        //     'label' => 'X',
-        //     'url'   => false,
-        // ],
+        'settings' => [
+            'label' => 'Settings',
+            'url'   => menu_page_url( 'flush-opcache', false ),
+        ],
     ],
     'rn'    => [
         'flush_opcache_button',

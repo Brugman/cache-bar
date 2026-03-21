@@ -16,10 +16,10 @@ return [
             'label' => 'Clear Varnish Cache',
             'url'   => $clear_url,
         ],
-        // 'settings' => [
-        //     'label' => 'X',
-        //     'url'   => false,
-        // ],
+        'settings' => [
+            'label' => 'Settings',
+            'url'   => menu_page_url( 'clp-varnish-cache', false ),
+        ],
     ],
     'rn'    => [],
 ];
