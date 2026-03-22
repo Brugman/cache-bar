@@ -20,7 +20,7 @@ return [
             'url'   => $clear_url,
         ],
         'settings' => [
-            'label' => 'Settings',
+            'label' => '<span class="ab-icon"></span>',
             'url'   => menu_page_url( 'wpsupercache', false ),
         ],
     ],
