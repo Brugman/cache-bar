@@ -13,6 +13,7 @@ Plugin | Primary Cache Type
 [WP Super Cache](https://wordpress.org/plugins/wp-super-cache/) | Page Cache
 [W3 Total Cache](https://wordpress.org/plugins/w3-total-cache/) | Page Cache
 [Cache Enabler](https://wordpress.org/plugins/cache-enabler/) | Page Cache
+[WP Rocket](https://wp-rocket.me/) | Page Cache
 [Redis Object Cache](https://wordpress.org/plugins/redis-cache/) | Object Cache
 
 ## Configurations
