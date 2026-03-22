@@ -4,6 +4,17 @@
 
 ## Supported Plugins
 
+Plugin | Primary Cache Type
+:--- |:---
+[WP OPcache](https://wordpress.org/plugins/flush-opcache/) | PHP OPcache
+[OPcache Manager](https://wordpress.org/plugins/opcache-manager/) | PHP OPcache
+[LiteSpeed Cache](https://wordpress.org/plugins/litespeed-cache/) | Server-Side Page Cache
+[CLP Varnish Cache](https://wordpress.org/plugins/clp-varnish-cache/) | Server-Side Page Cache
+[WP Super Cache](https://wordpress.org/plugins/wp-super-cache/) | Page Cache
+[W3 Total Cache](https://wordpress.org/plugins/w3-total-cache/) | Page Cache
+[Cache Enabler](https://wordpress.org/plugins/cache-enabler/) | Page Cache
+[Redis Object Cache](https://wordpress.org/plugins/redis-cache/) | Object Cache
+
 - [WP OPcache](https://wordpress.org/plugins/flush-opcache/)
 - [CLP Varnish Cache](https://wordpress.org/plugins/clp-varnish-cache/)
 - [Cache Enabler](https://wordpress.org/plugins/cache-enabler/)
