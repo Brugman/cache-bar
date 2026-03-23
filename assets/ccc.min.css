@@ -12,7 +12,7 @@
     text-align: right;
 }
 #wp-admin-bar-ccc-toolbar .ab-icon {
-    margin: 0;
+    margin-right: 0 !important;
 }
 #wp-admin-bar-ccc-toolbar .ab-icon::before {
     content: "\f111";
