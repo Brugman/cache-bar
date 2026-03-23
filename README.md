@@ -2,6 +2,8 @@
 
 > A WordPress plugin that streamlines your cache clearing.
 
+![screenshot](/screenshot.png)
+
 ## Supported Plugins
 
 Plugin | Primary Cache Type
