@@ -13,7 +13,7 @@ return [
     'name'  => 'WP Rocket',
     'links' => [
         'clear' => [
-            'label' => 'Clear Rocket Cache',
+            'label' => 'Clear Page Cache',
             'url'   => $clear_url,
         ],
         'settings' => [

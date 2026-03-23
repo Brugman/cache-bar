@@ -10,7 +10,7 @@ return [
     'name'  => 'W3 Total Cache',
     'links' => [
         'clear' => [
-            'label' => 'Clear All W3TC Caches',
+            'label' => 'Clear Page Cache',
             'url'   => $clear_url,
         ],
         'settings' => [

@@ -13,7 +13,7 @@ return [
     'name'  => 'CLP Varnish Cache',
     'links' => [
         'clear' => [
-            'label' => 'Clear Varnish Cache',
+            'label' => 'Clear Page Cache',
             'url'   => $clear_url,
         ],
         'settings' => [

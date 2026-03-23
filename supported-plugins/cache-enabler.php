@@ -13,7 +13,7 @@ return [
     'name'  => 'Cache Enabler',
     'links' => [
         'clear' => [
-            'label' => 'Clear Cache Enabler Page Cache',
+            'label' => 'Clear Page Cache',
             'url'   => $clear_url,
         ],
         'settings' => [

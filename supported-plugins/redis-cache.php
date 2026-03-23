@@ -14,7 +14,7 @@ return [
     'name'  => 'Redis Object Cache',
     'links' => [
         'clear' => [
-            'label' => 'Clear Redis Object Cache',
+            'label' => 'Clear Object Cache',
             'url'   => $clear_url,
         ],
         'settings' => [

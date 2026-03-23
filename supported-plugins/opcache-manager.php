@@ -14,7 +14,7 @@ return [
     'name'  => 'OPcache Manager',
     'links' => [
         'clear' => [
-            'label' => 'Clear PHP OPcache',
+            'label' => 'Clear OPcache',
             'url'   => $clear_url,
         ],
         'settings' => [

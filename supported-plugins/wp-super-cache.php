@@ -16,7 +16,7 @@ return [
     'name'  => 'WP Super Cache',
     'links' => [
         'clear' => [
-            'label' => 'Clear Super Cache',
+            'label' => 'Clear Page Cache',
             'url'   => $clear_url,
         ],
         'settings' => [

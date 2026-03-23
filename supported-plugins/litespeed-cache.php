@@ -13,7 +13,7 @@ return [
     'name'  => 'LiteSpeed Cache',
     'links' => [
         'clear' => [
-            'label' => 'Clear LiteSpeed Page Cache',
+            'label' => 'Clear Page Cache',
             'url'   => $clear_url,
         ],
         'settings' => [
