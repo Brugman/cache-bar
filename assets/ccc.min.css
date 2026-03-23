@@ -1,0 +1,25 @@
+#wp-admin-bar-ccc-toolbar .ab-sub-wrapper .ab-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+}
+#wp-admin-bar-ccc-toolbar .ei-left,
+#wp-admin-bar-ccc-toolbar .ei-right {
+    padding-inline: 0 !important;
+}
+#wp-admin-bar-ccc-toolbar .ei-right {
+    text-align: right;
+}
+#wp-admin-bar-ccc-toolbar .ab-icon {
+    margin: 0;
+}
+#wp-admin-bar-ccc-toolbar .ab-icon::before {
+    content: "\f111";
+    top: 3px;
+    color: rgba(240,246,252,.7) !important;
+}
+#wp-admin-bar-ccc-toolbar .ab-icon:hover::before {
+    color: #72aee6 !important;
+}
+

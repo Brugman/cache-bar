@@ -42,7 +42,7 @@ final class Plugin
     {
         add_action( 'admin_enqueue_scripts', [ $this, 'register_backend_styles' ] );
 
-        add_action( 'admin_bar_menu', [ $this, 'add_ccc_toolbar' ] );
+        add_action( 'admin_bar_menu', [ $this, 'add_ccc_toolbar' ], 500 );
 
         add_action( 'wp_before_admin_bar_render', [ $this, 'remove_third_party_toolbars' ], 100 );
     }
@@ -50,25 +50,14 @@ final class Plugin
     public function register_backend_styles()
     {
         wp_register_style(
-            'ccc-css-main',
-            plugin_dir_url( CCC_FILE ).'assets/ccc-main.min.css',
+            'ccc',
+            plugin_dir_url( CCC_FILE ).'assets/ccc.min.css',
             [],
             CCC_VERSION,
             'all'
         );
 
-        wp_enqueue_style( 'ccc-css-main' );
-
-        wp_register_style(
-            'ccc-css-right',
-            plugin_dir_url( CCC_FILE ).'assets/ccc-right.min.css',
-            [],
-            CCC_VERSION,
-            'all'
-        );
-
-        if ( apply_filters( 'ccc_toolbar_position_right', false ) )
-            wp_enqueue_style( 'ccc-css-right' );
+        wp_enqueue_style( 'ccc' );
     }
 
     public function add_ccc_toolbar( $wp_admin_bar )
@@ -82,14 +71,12 @@ final class Plugin
         if ( !current_user_can( apply_filters( 'ccc_add_toolbar', 'manage_options' ) ) )
             return;
 
-        $wp_admin_bar->add_group([
-            'id' => 'ccc-group',
-        ]);
+        $parent = apply_filters( 'ccc_toolbar_position_right', false ) ? 'top-secondary' : false;
 
         $wp_admin_bar->add_node([
-            'id'     => 'ccc-node',
+            'id'     => 'ccc-toolbar',
             'title'  => 'Cache',
-            'parent' => 'ccc-group',
+            'parent' => $parent,
         ]);
 
         foreach ( $this->asp as $plugin )
@@ -116,9 +103,9 @@ final class Plugin
             }
 
             $wp_admin_bar->add_node([
-                'id'     => 'ccc-node-'.$plugin['id'],
+                'id'     => 'ccc-toolbar-'.$plugin['id'],
                 'title'  => $title,
-                'parent' => 'ccc-node',
+                'parent' => 'ccc-toolbar',
                 'href'   => $href,
             ]);
         }
