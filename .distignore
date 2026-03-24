@@ -1,0 +1,10 @@
+/.git
+/.github
+/.wordpress-org
+/node_modules
+
+.distignore
+.gitattributes
+.gitignore
+README.md
+screenshot.png
