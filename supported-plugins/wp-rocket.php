@@ -11,18 +11,15 @@ return [
     'slug'  => 'wp-rocket/wp-rocket.php',
     'id'    => 'wp_rocket',
     'name'  => 'WP Rocket',
-    'links' => [
-        'clear' => [
-            'label' => 'Clear Page Cache',
-            'url'   => $clear_url,
-        ],
-        'settings' => [
-            'label' => '<span class="ab-icon"></span>',
-            'url'   => menu_page_url( 'wprocket', false ),
-        ],
-    ],
     'rn'    => [
         'wp-rocket',
+    ],
+    'links' => [
+        [
+            'label'    => 'Clear Page Cache',
+            'url'      => $clear_url,
+            'settings' => menu_page_url( 'wprocket', false ),
+        ],
     ],
 ];
 

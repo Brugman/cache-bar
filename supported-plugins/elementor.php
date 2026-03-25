@@ -10,16 +10,13 @@ return [
     'slug'  => 'elementor/elementor.php',
     'id'    => 'elementor',
     'name'  => 'Elementor',
+    'rn'    => [],
     'links' => [
-        'clear' => [
-            'label' => 'Clear Elementor Cache',
-            'url'   => $clear_url,
-        ],
-        'settings' => [
-            'label' => '<span class="ab-icon"></span>',
-            'url'   => menu_page_url( 'elementor-settings', false ).'#tab-performance',
+        [
+            'label'    => 'Clear Elementor Cache',
+            'url'      => $clear_url,
+            'settings' => menu_page_url( 'elementor-settings', false ).'#tab-performance',
         ],
     ],
-    'rn'    => [],
 ];
 

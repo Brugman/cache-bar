@@ -11,18 +11,15 @@ return [
     'slug'  => 'cdn-enabler/cdn-enabler.php',
     'id'    => 'cdn_enabler',
     'name'  => 'CDN Enabler',
-    'links' => [
-        'clear' => [
-            'label' => 'Clear CDN Cache',
-            'url'   => $clear_url,
-        ],
-        'settings' => [
-            'label' => '<span class="ab-icon"></span>',
-            'url'   => menu_page_url( 'cdn-enabler', false ),
-        ],
-    ],
     'rn'    => [
         'cdn-enabler-purge-cache',
+    ],
+    'links' => [
+        [
+            'label'    => 'Clear CDN Cache',
+            'url'      => $clear_url,
+            'settings' => menu_page_url( 'cdn-enabler', false ),
+        ],
     ],
 ];
 

@@ -10,18 +10,15 @@ return [
     'slug'  => 'flush-opcache/flush-opcache.php',
     'id'    => 'wp_opcache',
     'name'  => 'WP OPcache',
-    'links' => [
-        'clear' => [
-            'label' => 'Clear OPcache',
-            'url'   => $clear_url,
-        ],
-        'settings' => [
-            'label' => '<span class="ab-icon"></span>',
-            'url'   => menu_page_url( 'flush-opcache', false ),
-        ],
-    ],
     'rn'    => [
         'flush_opcache_button',
+    ],
+    'links' => [
+        [
+            'label'    => 'Clear OPcache',
+            'url'      => $clear_url,
+            'settings' => menu_page_url( 'flush-opcache', false ),
+        ],
     ],
 ];
 

@@ -11,16 +11,13 @@ return [
     'slug'  => 'clp-varnish-cache/clp-varnish-cache.php',
     'id'    => 'clp_varnish_cache',
     'name'  => 'CLP Varnish Cache',
+    'rn'    => [],
     'links' => [
-        'clear' => [
-            'label' => 'Clear Page Cache',
-            'url'   => $clear_url,
-        ],
-        'settings' => [
-            'label' => '<span class="ab-icon"></span>',
-            'url'   => menu_page_url( 'clp-varnish-cache', false ),
+        [
+            'label'    => 'Clear Page Cache',
+            'url'      => $clear_url,
+            'settings' => menu_page_url( 'clp-varnish-cache', false ),
         ],
     ],
-    'rn'    => [],
 ];
 

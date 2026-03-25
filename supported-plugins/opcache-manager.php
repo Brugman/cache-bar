@@ -12,18 +12,15 @@ return [
     'slug'  => 'opcache-manager/opcache-manager.php',
     'id'    => 'opcache_manager',
     'name'  => 'OPcache Manager',
-    'links' => [
-        'clear' => [
-            'label' => 'Clear OPcache',
-            'url'   => $clear_url,
-        ],
-        'settings' => [
-            'label' => '<span class="ab-icon"></span>',
-            'url'   => admin_url( 'admin.php?page=opcm-tools' ),
-        ],
-    ],
     'rn'    => [
         'perfopsone-dashboard',
+    ],
+    'links' => [
+        [
+            'label'    => 'Clear OPcache',
+            'url'      => $clear_url,
+            'settings' => admin_url( 'admin.php?page=opcm-tools' ),
+        ],
     ],
 ];
 

@@ -14,18 +14,15 @@ return [
     'slug'  => 'wp-super-cache/wp-cache.php',
     'id'    => 'wp_super_cache',
     'name'  => 'WP Super Cache',
-    'links' => [
-        'clear' => [
-            'label' => 'Clear Page Cache',
-            'url'   => $clear_url,
-        ],
-        'settings' => [
-            'label' => '<span class="ab-icon"></span>',
-            'url'   => menu_page_url( 'wpsupercache', false ),
-        ],
-    ],
     'rn'    => [
         'delete-cache',
+    ],
+    'links' => [
+        [
+            'label'    => 'Clear Page Cache',
+            'url'      => $clear_url,
+            'settings' => menu_page_url( 'wpsupercache', false ),
+        ],
     ],
 ];
 

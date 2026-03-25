@@ -81,51 +81,28 @@ final class Plugin
 
         foreach ( $this->asp as $plugin )
         {
-            if ( isset( $plugin['links']['clear'], $plugin['links']['settings'] ) )
+            foreach ( $plugin['links'] as $index => $link )
             {
-                $title = $this->build_double_node_title(
-                    $plugin['links']['clear']['label'],
-                    $plugin['links']['clear']['url'],
-                    $plugin['links']['settings']['label'],
-                    $plugin['links']['settings']['url'],
-                );
+                $title = $link['label'];
+                $href  = $link['url'];
 
-                $href = false;
-            }
-            elseif ( isset( $plugin['links']['clear'] ) )
-            {
-                $title = $plugin['links']['clear']['label'];
-                $href  = $plugin['links']['clear']['url'];
-            }
-            else
-            {
-                continue;
-            }
+                if ( isset( $link['settings'] ) )
+                {
+                    $title = '';
+                    $title .= '<a href="'.$link['url'].'" class="ei-left">'.$link['label'].'</a>';
+                    $title .= '<a href="'.$link['settings'].'" class="ei-right"><span class="ab-icon"></span></a>';
 
-            $wp_admin_bar->add_node([
-                'id'     => 'ccc-toolbar-'.$plugin['id'],
-                'title'  => $title,
-                'parent' => 'ccc-toolbar',
-                'href'   => $href,
-            ]);
+                    $href = false;
+                }
+
+                $wp_admin_bar->add_node([
+                    'id'     => 'ccc-toolbar-'.$plugin['id'].'-'.$index,
+                    'title'  => $title,
+                    'parent' => 'ccc-toolbar',
+                    'href'   => $href,
+                ]);
+            }
         }
-    }
-
-    private function build_double_node_title( $text_one, $link_one, $text_two, $link_two )
-    {
-        $title = '';
-
-        if ( $link_one === false )
-            $title .= '<span class="ei-left">'.$text_one.'</span>';
-        else
-            $title .= '<a href="'.$link_one.'" class="ei-left">'.$text_one.'</a>';
-
-        if ( $link_two === false )
-            $title .= '<span class="ei-right">'.$text_two.'</span>';
-        else
-            $title .= '<a href="'.$link_two.'" class="ei-right">'.$text_two.'</a>';
-
-        return $title;
     }
 
     public function remove_third_party_toolbars()
