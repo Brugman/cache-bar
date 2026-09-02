@@ -45,6 +45,9 @@ final class Plugin
         add_action( 'admin_bar_menu', [ $this, 'add_ccc_toolbar' ], 500 );
 
         add_action( 'wp_before_admin_bar_render', [ $this, 'remove_third_party_toolbars' ], 100 );
+
+        add_action( 'admin_post_ccc_clear_transients', [ $this, 'handle_clear_transients' ] );
+        add_action( 'admin_notices', [ $this, 'transients_cleared_notice' ] );
     }
 
     public function register_backend_styles()
@@ -65,9 +68,6 @@ final class Plugin
         if ( is_null( $this->asp ) )
             $this->asp = $this->active_supported_plugins();
 
-        if ( empty( $this->asp ) )
-            return;
-
         if ( !current_user_can( apply_filters( 'ccc_add_toolbar', 'manage_options' ) ) )
             return;
 
@@ -77,6 +77,13 @@ final class Plugin
             'id'     => 'ccc-toolbar',
             'title'  => 'Cache',
             'parent' => $parent,
+        ]);
+
+        $wp_admin_bar->add_node([
+            'id'     => 'ccc-toolbar-transients',
+            'title'  => 'Clear transients',
+            'parent' => 'ccc-toolbar',
+            'href'   => wp_nonce_url( admin_url('admin-post.php?action=ccc_clear_transients'), 'ccc_clear_transients' ),
         ]);
 
         foreach ( $this->asp as $plugin )
@@ -143,6 +150,57 @@ final class Plugin
             $all_supported_plugins[] = include $file;
 
         return apply_filters( 'cache_bar_plugins', $all_supported_plugins );
+    }
+
+    private function delete_all_transients()
+    {
+        $transient_names = $this->get_transient_names();
+
+        foreach ( $transient_names as $transient_name )
+            delete_transient( $transient_name );
+
+        return count( $transient_names );
+    }
+
+    private function get_transient_names()
+    {
+        global $wpdb;
+
+        $transient_names = $wpdb->get_col("
+            SELECT option_name
+            FROM {$wpdb->options}
+            WHERE option_name LIKE '_transient_%'
+        ");
+
+        return array_map( fn ( $name ) => substr( $name, 11 ), $transient_names );
+    }
+
+    public function handle_clear_transients()
+    {
+        if ( !current_user_can( apply_filters( 'ccc_add_toolbar', 'manage_options' ) ) )
+            wp_die('Insufficient permissions');
+
+        check_admin_referer('ccc_clear_transients');
+
+        $count = $this->delete_all_transients();
+
+        wp_safe_redirect( add_query_arg( [
+            'ccc-deleted-transients' => true,
+            'count'                  => $count,
+        ], admin_url() ) );
+        exit;
+    }
+
+    public function transients_cleared_notice()
+    {
+        if ( !isset( $_GET['ccc-deleted-transients'] ) )
+            return;
+
+        ?>
+<div class="notice notice-success is-dismissible">
+    <p>Cleared all <?=absint( $_GET['count'] );?> transients.</p>
+</div>
+        <?php
     }
 }
 
