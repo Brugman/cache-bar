@@ -16,6 +16,7 @@ Plugin | Primary Cache Type
 [W3 Total Cache](https://wordpress.org/plugins/w3-total-cache/) | Page Cache
 [Cache Enabler](https://wordpress.org/plugins/cache-enabler/) | Page Cache
 [WP Rocket](https://wp-rocket.me/) | Page Cache
+[Speed Optimizer](https://wordpress.org/plugins/sg-cachepress/) | Page Cache
 [Redis Object Cache](https://wordpress.org/plugins/redis-cache/) | Object Cache
 [CDN Enabler](https://wordpress.org/plugins/cdn-enabler/) | CDN
 
