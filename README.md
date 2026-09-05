@@ -12,6 +12,7 @@ Plugin | Primary Cache Type
 [OPcache Manager](https://wordpress.org/plugins/opcache-manager/) | PHP OPcache
 [LiteSpeed Cache](https://wordpress.org/plugins/litespeed-cache/) | Server-Side Page Cache
 [CLP Varnish Cache](https://wordpress.org/plugins/clp-varnish-cache/) | Server-Side Page Cache
+[NGINX Cache](https://wordpress.org/plugins/nginx-cache/) | Server-Side Page Cache
 [NGINX Helper](https://wordpress.org/plugins/nginx-helper/) | Server-Side Page Cache
 [WP Super Cache](https://wordpress.org/plugins/wp-super-cache/) | Page Cache
 [W3 Total Cache](https://wordpress.org/plugins/w3-total-cache/) | Page Cache
